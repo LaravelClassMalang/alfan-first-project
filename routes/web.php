@@ -28,7 +28,19 @@ Route::get('/', function() {
 
 // Route::resource('dashboard', 'DashboardController');
 
-Route::resource('products', 'ProductController');
+/**
+ * Login
+ */
+Route::get('/login', 'MyAuth\LoginController@login');
 
+// Products Page
+Route::resource('products', 'ProductController');
+Route::get('products/{product}', 'ProductController@destroy')->name('products.delete');
+
+// Users Page
 Route::resource('users', 'UserController', ['except' => 'destroy']);
-Route::get('users/{user}', 'UserController@destroy')->name('users.delete');
+Route::get('users/{user_id}', 'UserController@destroy')->name('users.delete');
+
+// Orders Page
+Route::resource('orders', 'OrderController', ['except' => 'destroy']);
+Route::get('orders/{order}', 'OrderController@destroy')->name('orders.delete');

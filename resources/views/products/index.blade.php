@@ -22,19 +22,18 @@
                             <h3>Cari</h3>
                         </div>
                         <div class="x_content">
-                            <form class="form-inline" action="{{ route('products.index') }}" method="get">
+                            <form class="form-inline" action="{{ route('products.index') }}" method="GET">
                                 <div class="form-group">
-                                    <input type="text" name="search" placeholder="Nopol / Jenis" value="{{ Request::get('search') }}" class="form-control">
+                                    <input type="text" name="product_name" placeholder="Product Name" value="{{ Request::get('product_name') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" name="kapasitas" placeholder="Kapasitas" value="{{ Request::get('kapasitas') }}" class="form-control">
+                                    <input type="number" name="stock" placeholder="Stock" value="{{ Request::get('stock') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <select name="status" id="status" class="form-control">
-                                        <option value="1" {{ (Request::get('status')== 1) ? 'selected': '' }}>Tersedia</option>
-                                        <option value="0" {{ (Request::get('status')== 0) ? 'selected': '' }}>Tidak Tersedia</option>
-                                        <option value="" {{ (Request::get('status')== '') ? 'selected': '' }}>Status Kendaraan</option>
-                                    </select>
+                                    <input type="number" name="price" placeholder="Price" value="{{ Request::get('price') }}" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="category" placeholder="Category" value="{{ Request::get('category') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-search"><i class="fa fa-search"></i> </button>
@@ -69,19 +68,21 @@
                                         <th>Name</th>
                                         <th>Stock</th>
                                         <th>Price</th>
+                                        <th>Category</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data['products'] as $product)
+                                    @foreach($data['products'] as $key => $product)
                                         <tr>
-                                            <td></td>
-                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $number++ }}</td>
+                                            <td>{{ $product->product_name }}</td>
                                             <td>{{ $product->stock }}</td>
                                             <td>{{ $product->price }}</td>
+                                            <td>{{ $product->category->category_name or '-' }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('products.edit', ['id' => $product->id]) }}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a onclick="return confirm('Delete this data ?')" href="{{ route('products.delete', ['id' => $product->id]) }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                                <a href="{{ route('products.edit', ['product_id' => $product->product_id]) }}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a onclick="return confirm('Delete this data ?')" href="{{ route('products.delete', ['product_id' => $product->product_id]) }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -89,6 +90,7 @@
                                 </table>
                                 <div class="clearfix"></div>
                                 <div class="text-center">
+                                    {!! $data['products']->appends(request()->except('key'))->render() !!}
                                 </div>
                             </div>
                         </div>

@@ -8,3 +8,8 @@
     <a href="{{ route('users.index') }}"><i class="fa fa-users"></i> <span>Users</span></a>
   </li>
 </ul>
+<ul class="sidebar-menu">
+  <li class="active">
+    <a href="{{ route('orders.index') }}"><i class="fa fa-users"></i> <span>Orders</span></a>
+  </li>
+</ul>

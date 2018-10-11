@@ -81,8 +81,8 @@
               <!-- User image -->
               <li class="user-header">
                 <p>
-                  Ahmad Fatoni<br> Mentor
-                  <small>fatoni@dot-indonesia.com</small>
+                  Alfan Ghinan Rusydi<br> Student
+                  <small>alfangr05@gmail.com</small>
                 </p>
               </li>
               </li>

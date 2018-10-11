@@ -33,7 +33,18 @@
                             <div class='form-group row'>
                                 <label class='col-md-3 control-label'>Name</label>
                                 <div class='col-md-7'>
-                                    <input type='text' class='form-control' name='name' placeholder="Product Name" required value="{{ old('name') }}">
+                                    <input type='text' class='form-control' name='product_name' placeholder="Product Name" required value="{{ old('name') }}">
+                                </div>
+                            </div>
+                            <div class='form-group row'>
+                                <label class='col-md-3 control-label'>Category</label>
+                                <div class='col-md-7'>
+                                    <select name="category_id" id="category_id" class="form-control">
+                                        <option value="">-- Choose Category --</option>
+                                        @foreach ($data['categories'] as $key => $category)
+                                        <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class='form-group row'>

@@ -20,13 +20,24 @@
                 <div class="x_content">
                     <div class="box-body">
                         
-                        <form action="{{ route('products.update', ['id' => $data['product']->id]) }}" method="post">
+                        <form action="{{ route('products.update', ['product_id' => $data['product']->product_id]) }}" method="POST">
                             {!! csrf_field() !!}      
                             <input type="hidden" name="_method" value="PUT">                      
                             <div class='form-group row'>
                                 <label class='col-md-3 control-label'>Name</label>
                                 <div class='col-md-7'>
-                                    <input type='text' class='form-control' name='name' placeholder="Product Name" required value="{{ $data['product']->name }}">
+                                    <input type='text' class='form-control' name='name' placeholder="Product Name" required value="{{ $data['product']->product_name }}">
+                                </div>
+                            </div>
+                            <div class='form-group row'>
+                                <label class='col-md-3 control-label'>Category</label>
+                                <div class='col-md-7'>
+                                    <select name="category_id" id="category_id" class="form-control">
+                                        <option value="">-- Choose Category --</option>
+                                        @foreach ($data['categories'] as $key => $category)
+                                        <option value="{{ $category->category_id }}" @if($data['product']->category_id == $category->category_id) selected @endif>{{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class='form-group row'>

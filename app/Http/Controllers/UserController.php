@@ -27,7 +27,7 @@ class UserController extends Controller
             $users->where('name', 'LIKE', '%'.$request->name.'%');
         }
 
-        $users = $users->paginate($pagination);
+        $data['users'] = $users->paginate($pagination);
         // $users = User::all();
 
         // Support Pagination
@@ -40,7 +40,7 @@ class UserController extends Controller
             $number += (request()->get('page') - 1) * $pagination;
         }
 
-        return view('users.index', compact('users', 'number'));
+        return view('users.index', compact('data', 'number'));
     }
 
     /**
@@ -86,9 +86,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
-        //
+        $data['user'] = User::find($user_id);
+        // Debug
+        // dd($data['user']->product);
+
+        return view('users.show', compact('data'));
     }
 
     /**
@@ -128,7 +132,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
-        $user->save();
+        $user->update();
 
         // return to view
         return redirect()->route('users.index');
