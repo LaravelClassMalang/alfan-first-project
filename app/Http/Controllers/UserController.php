@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use PDF;
 
 class UserController extends Controller
 {
@@ -90,7 +91,7 @@ class UserController extends Controller
     {
         $data['user'] = User::find($user_id);
         // Debug
-        // dd($data['user']->product);
+        // dd($data['user']->products);
 
         return view('users.show', compact('data'));
     }
@@ -151,5 +152,26 @@ class UserController extends Controller
 
         // return to view
         return redirect()->route('users.index');
+    }
+
+    public function exportPDF($user_id) {
+        // $pdf = \App::make('dompdf.wrapper');
+        // $pdf->loadHTML('
+        //     <style>
+        //     .page-break {
+        //         page-break-after: always;
+        //     }
+        //     </style>
+        //     <h1>Page 1</h1>
+        //     <div class="page-break"></div>
+        //     <h1>Page 2</h1>
+        //     <div class="page-break"></div>
+        //     <h1>Page 3</h1>
+        // ');
+        // return $pdf->stream();
+        $data['user'] = User::find($user_id);
+        // dd($data['user']);
+        $pdf = PDF::loadView('users.tespdf', compact('data'));
+        return $pdf->stream('invoice.pdf');
     }
 }

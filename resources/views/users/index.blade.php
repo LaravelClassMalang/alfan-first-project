@@ -46,10 +46,14 @@
                 <div class="box-body">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h3>List Users
-
-                            <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add New
-                            </a>
+                            <form class="form-inline" action="{{ route('users.index') }}" method="GET">
+                                <div class="form-group">
+                                    <label style="font-size:24px;font-family:'Source Sans Pro',sans-serif;font-weight:500;">List Users</label>
+                                </div>                                
+                                <a href="{{ route('users.create') }}" class="btn btn-sm btn-info btn-search pull-right"><i class="fa fa-plus"></i> Add New</a>
+                                <a href="{{ route('users.export_xls') }}" class="btn btn-sm btn-success btn-search pull-right" style="margin-right:5px;"><i class="fa fa-file-excel-o"></i> Export XLS</a>
+                            </form>
+                            
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Order;
-use App\Product;
-use App\User;
+use App\Category;
 
-class OrderController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,14 +18,14 @@ class OrderController extends Controller
         $pagination = 2;
 
         // filtering
-        $order = Order::query();
+        $categories = Category::query();
 
         // if parameter product name isset, then do search based on a product name
-        if($request->order_id AND $request->order_id != '') {
-            $order->where('order_id', 'LIKE', '%'.$request->order_id.'%');
+        if($request->category_name AND $request->category_name != '') {
+            $categories->where('category_name', 'LIKE', '%'.$request->category_name.'%');
         }
 
-        $data['orders'] = $order->paginate($pagination);
+        $data['categories'] = $categories->paginate($pagination);
 
         // numbering
         $number = 1;
@@ -36,7 +34,7 @@ class OrderController extends Controller
             $number += (request()->get('page') - 1) * $pagination;
         }
 
-        return view('orders.index', compact('data', 'number'));
+        return view('categories.index', compact('data', 'number'));
     }
 
     /**
@@ -46,10 +44,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        // $data['orders'] = Order::all();
-        $data['products'] = Product::all();
-        $data['users'] = User::all();
-        return view('orders.create', compact('data'));
+        //
     }
 
     /**
@@ -60,12 +55,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = New Order();
-        $order->product_id = $request->product_id;
-        $order->user_id = $request->user_id;
-        $order->save();
-
-        return redirect()->route('orders.index');
+        //
     }
 
     /**
@@ -85,13 +75,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($category_id)
     {
-        $data['order'] = Order::find($id);
-        $data['product'] = Product::all();
-        $data['user'] = User::all();
-
-        return view('orders.edit', compact('data'));
+        $data['category'] = Category::find($category_id);
+        return view('categories.edit', compact('data'));
     }
 
     /**
@@ -101,15 +88,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $category_id)
     {
-        // dd($request->all());
-        $order = Order::find($id);
-        $order->product_id = $request->product_id;
-        $order->user_id = $request->user_id;
-        $order->update();
-
-        return redirect()->route('orders.index');
+        Category::where('category_id', '=', $category_id)->update($request->only('category_name'));
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -118,10 +100,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($category_id)
     {
-        Order::where('order_id', '=', $id)->delete();
-
-        return redirect()->route('orders.index');
+        Category::where('category_id', '=', $category_id)->delete();
+        
+        return redirect()->route('categories.index');
     }
 }

@@ -35,8 +35,8 @@
                                 <div class='col-md-7'>
                                     <select name="product_id" id="product_id" class="form-control">
                                         <option value="">-- Choose Product --</option>
-                                        @foreach ($data['orders'] as $key => $order)
-                                        <option value="{{ $order->products->product_id }}">{{ $order->products->product_name }}</option>
+                                        @foreach ($data['products'] as $key => $product)
+                                        <option value="{{ $product->product_id }}">{{ $product->product_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -46,8 +46,8 @@
                                 <div class='col-md-7'>
                                     <select name="user_id" id="user_id" class="form-control">
                                         <option value="">-- Choose User --</option>
-                                        @foreach ($data['orders'] as $key => $order)
-                                        <option value="{{ $order->users->user_id }}">{{ $order->users->name }}</option>
+                                        @foreach ($data['users'] as $key => $user)
+                                        <option value="{{ $user->user_id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

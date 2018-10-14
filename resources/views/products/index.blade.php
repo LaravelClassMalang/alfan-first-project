@@ -2,7 +2,7 @@
 
 @section('page-title')
 <h1>
-    <i class="fa fa-tachometer"></i> Products
+    <i class="fa fa-shopping-cart"></i> Products
 </h1>
 @endsection
 
