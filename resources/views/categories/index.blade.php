@@ -43,9 +43,10 @@
                 <div class="box-body">
                     <div class="x_panel">
                         <div class="x_title">
-                            <div class="form-group">
-                                <label style="font-size:24px;font-family:'Source Sans Pro',sans-serif;font-weight:500;">List Categories</label>
-                            </div>                                
+                            <h3>List Categories
+                           
+                            <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add New
+                            </a>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">

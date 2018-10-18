@@ -11,13 +11,12 @@ class AdminTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        DB::table('admins')->delete();
+    {   
         Admin::create(array(
             'display_admin'     => 'Alfan Ghinan Rusydi',
             'admin_name' => 'alfangr',
-            'admin_email'    => 'alfangr@gmail.com',
-            'admin_password' => Hash::make('laravel'),
+            'admin_email'    => 'alfangr05@gmail.com',
+            'admin_password' => Hash::make('alfangr05@gmail.com'),
         ));
     }
 }

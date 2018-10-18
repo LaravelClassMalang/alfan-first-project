@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         // display data record of row amount
-        $pagination = 2;
+        $pagination = 5;
 
         // filtering
         $products = Product::query();

@@ -20,7 +20,7 @@
                 <div class="x_content">
                     <div class="box-body">
                         
-                        <form action="{{ route('users.update', ['user' => $user->id]) }}" method="POST">
+                        <form action="{{ route('users.update', ['id' => $user->id]) }}" method="POST">
                             {!! csrf_field() !!}  
                             @if ($errors->any())
                                 <div class="alert alert-danger">

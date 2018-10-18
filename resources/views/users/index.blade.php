@@ -51,7 +51,8 @@
                                     <label style="font-size:24px;font-family:'Source Sans Pro',sans-serif;font-weight:500;">List Users</label>
                                 </div>                                
                                 <a href="{{ route('users.create') }}" class="btn btn-sm btn-info btn-search pull-right"><i class="fa fa-plus"></i> Add New</a>
-                                <a href="{{ route('users.export_xls') }}" class="btn btn-sm btn-success btn-search pull-right" style="margin-right:5px;"><i class="fa fa-file-excel-o"></i> Export XLS</a>
+                                <a href="{{ route('users.export_xls_') }}" class="btn btn-sm btn-success btn-search pull-right" style="margin-right:5px;"><i class="fa fa-file-excel-o"></i> Export XLS</a>
+                                <!-- <a href="{{ route('users.export_xls') }}" class="btn btn-sm btn-success btn-search pull-right" style="margin-right:5px;"><i class="fa fa-file-excel-o"></i> Export XLS</a> -->
                             </form>
                             
                             <div class="clearfix"></div>
@@ -74,9 +75,13 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('users.show', ['user_id' => $user->user_id]) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
-                                                <a href="{{ route('users.edit', ['user_id' => $user->user_id]) }}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a onclick="return confirm('Delete this data ?')" href="{{ route('users.delete', ['user_id' => $user->user_id]) }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                                <a href="{{ route('users.show', ['user_id' => $user->id]) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('users.edit', ['user_id' => $user->id]) }}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
+                                                <form action="{{ route('users.delete', ['user_id' => $user->id]) }}" method="POST" style="display:inline !important">
+                                                    <!-- Method Post Will be replaced with this below -->
+                                                    {{method_field('DELETE')}} {{csrf_field()}}
+                                                    <button onclick="return confirm('Delete this data ?')" class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

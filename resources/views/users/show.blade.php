@@ -69,7 +69,7 @@
                                 <div class="col-md-12">
                                     <!-- <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button> -->
                                     <a href="{{ route('users.index') }}" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Back</a>
-                                    <a href="{{ route('users.export_pdf', $data['user']->user_id) }}" class="btn btn-danger btn-sm pull-right" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
+                                    <a href="{{ route('users.export_pdf', $data['user']->id) }}" class="btn btn-danger btn-sm pull-right" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
                                 </div>
                             </div>
                         </form>

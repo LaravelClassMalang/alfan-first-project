@@ -16,7 +16,7 @@ class User extends Authenticatable
      */
     // custom table name
     protected $table = 'users';
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'id';
     // custom auto_increment to false
     // protected $incrementing = false;
     // custom timestamp
@@ -36,7 +36,7 @@ class User extends Authenticatable
     ];
 
     public function products() {
-        return $this->belongsToMany('App\Product', 'orders', 'product_id', 'user_id');
-        // return $this->belongsToMany('model', 'tabel_berkaitan', 'kolom_relasi', 'kolom_yang_dituju');
+        return $this->belongsToMany('App\Product', 'orders', 'user_id', 'product_id');
+        // return $this->belongsToMany('model', 'tabel_berkaitan', 'fk_tabel_berkaitan', 'fk_model');
     }
 }

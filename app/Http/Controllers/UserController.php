@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Box\Spout\Reader\ReaderFactory;
+use Box\Spout\Writer\WriterFactory;
+use Box\Spout\Common\Type;
 use App\User;
 use PDF;
 
@@ -16,7 +20,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
-        $pagination = 2;
+        $pagination = 5;
 
         // filtering
         $users = User::query();
@@ -26,6 +30,10 @@ class UserController extends Controller
             // $users->where('name', '=', '%'.$request.'%');
             // LIKE
             $users->where('name', 'LIKE', '%'.$request->name.'%');
+        }
+
+        if(isset($request->email) AND $request->email != '') {
+            $users->where('email', 'LIKE', '%'.$request->email.'%');
         }
 
         $data['users'] = $users->paginate($pagination);
@@ -118,16 +126,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users,email,'.$id,
+            'email' => 'required|unique:users,email,'.$user_id,
             'password' => 'confirmed'
         ]);
 
         // GET data by id
-        $user = User::find($id);
+        $user = User::find($user_id);
 
         // Update data
         $user->name = $request->name;
@@ -154,6 +162,25 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
+    public function exportXLS() {
+        $title = ['Name', 'Email'];
+        $fileName = 'Export User.xlsx';
+        $writer = WriterFactory::create(Type::XLSX); // for XLSX files
+        $customers = User::select('*'); // dapatkan seluruh data customer
+        
+        $writer->openToBrowser($fileName); // stream data directly to the browser
+        $writer->addRow($title); // tambahkan judul dibaris pertama
+        $customers->chunk(500, function($datas) use ( $writer ) {
+            foreach ($datas as $data) {
+                $writer->addRow([
+                    $data->name,
+                    $data->email
+                ]); // tambakan data data per baris
+            }
+        });
+        $writer->close();
+    }
+
     public function exportPDF($user_id) {
         // $pdf = \App::make('dompdf.wrapper');
         // $pdf->loadHTML('
@@ -173,5 +200,13 @@ class UserController extends Controller
         // dd($data['user']);
         $pdf = PDF::loadView('users.tespdf', compact('data'));
         return $pdf->stream('invoice.pdf');
+    }
+
+    public function testCache() {
+        $value = Cache::remember('users', 2, function () { // 2 adalah menit
+            return User::first();
+        });
+
+        dd($value);
     }
 }

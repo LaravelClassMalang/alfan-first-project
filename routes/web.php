@@ -13,44 +13,52 @@
 
 Route::get('/', function() {
     return view('welcome');
-});
-
-// Route::get('/admin/dashboard', function () {
-//     // return trans("messages.dashboard");
-//     return trans("messages.test");
-// })->name("home")->middleware("lang");;
-
-// // Route::get('/{name}', function($name) {
-// //     return redirect()->route('home');
-// // });
-
-// Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
-
-// Route::resource('dashboard', 'DashboardController');
+})->name('welcome');
 
 /**
- * Login
+ * Auth
  */
-Route::get('/login', 'MyAuth\LoginController@showLogin');
+// Login
+Route::get('/login', 'MyAuth\LoginController@showLogin')->name('show_login');
 Route::post('/login', 'MyAuth\LoginController@doLogin')->name('do_login');
+// Logout
+Route::get('/logout', 'MyAuth\LoginController@doLogout')->name('do_logout');
 
-// Products Page
+/**
+ * Product Page
+ */
 Route::resource('products', 'ProductController');
 Route::get('products/{product}', 'ProductController@destroy')->name('products.delete');
 
-// Categories Page
+/**
+ * Category Page
+ */
 Route::resource('categories', 'CategoryController');
 Route::get('categories/{category}', 'CategoryController@destroy')->name('categories.delete');
 
-// Users Page
+/**
+ * User Page
+ */
 Route::resource('users', 'UserController', ['except' => 'destroy']);
-Route::get('users/{user_id}', 'UserController@destroy')->name('users.delete');
+Route::delete('users/{user}', 'UserController@destroy')->name('users.delete');
+// Download to excel
+Route::get('exportXLS/users', 'Export@exportXLS')->name('users.export_xls');
+Route::get('exportXLS', 'UserController@exportXLS')->name('users.export_xls_');
+// Download to pdf
+Route::get('exportPDF/{user_id}', 'UserController@exportPDF')->name('users.export_pdf');
+// Cache Test
+Route::get('cacheuser', 'UserController@testCache')->name('users.cache');
 
-// Orders Page
+/**
+ * Order Page
+ */
 Route::resource('orders', 'OrderController', ['except' => 'destroy']);
 Route::get('orders/{order}', 'OrderController@destroy')->name('orders.delete');
 
-// Download to excel
-Route::get('exportXLS', 'Export@exportXLS')->name('users.export_xls');
-// Download to pdf
-Route::get('exportPDF/{user_id}', 'UserController@exportPDF')->name('users.export_pdf');
+/**
+ * E-Mail Page
+ */
+Route::get('e-mails', 'EmailController@index')->name('e-mails.index');
+Route::post('e-mails/send', 'EmailController@send')->name('e-mails.send');
+
+

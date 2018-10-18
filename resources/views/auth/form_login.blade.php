@@ -38,28 +38,27 @@
 
     <form action="{{ route('do_login') }}" method="POST"> {{ csrf_field() }}
       <div class="form-group has-feedback">
-        <input type="email" name="admin_email" class="form-control" placeholder="Email...">
+        <input type="email" name="admin_email" class="form-control" placeholder="Email..." autofocus required>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="admin_password" class="form-control" placeholder="Password...">
+        <input type="password" name="admin_password" class="form-control" placeholder="Password..." required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <!-- <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> Remember Me
-            </label>
-          </div>
-        </div> -->
         <!-- /.col -->
-        <div class="col-xs-4 pull-right">
+        <div class="col-xs-4 pull-right" style="margin-bottom:10px">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
+    @if(Session::has('invalid_message'))
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <p>Invalid email or password!</p>
+      </div>
+    @endif
   </div>
   <!-- /.login-box-body -->
 </div>

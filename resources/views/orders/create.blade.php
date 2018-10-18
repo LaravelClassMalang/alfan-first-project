@@ -47,7 +47,7 @@
                                     <select name="user_id" id="user_id" class="form-control">
                                         <option value="">-- Choose User --</option>
                                         @foreach ($data['users'] as $key => $user)
-                                        <option value="{{ $user->user_id }}">{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         // display data record of row amount
-        $pagination = 2;
+        $pagination = 5;
 
         // filtering
         $categories = Category::query();
@@ -44,7 +44,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -55,7 +55,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->category_name = $request->category_name;
+        $category->save();
+
+        return redirect()->route('categories.index');
     }
 
     /**

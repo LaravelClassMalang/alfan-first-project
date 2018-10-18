@@ -85,6 +85,10 @@
                   <small>alfangr05@gmail.com</small>
                 </p>
               </li>
+              <li class="user-footer">
+                <div>
+                  <a href="{{ route('do_logout') }}" class="btn btn-sm btn-primary pull-right"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
+                </div>
               </li>
             </ul>
           </li>

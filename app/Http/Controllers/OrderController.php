@@ -17,10 +17,13 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         // display data record of row amount
-        $pagination = 2;
+        $pagination = 5;
 
         // filtering
         $order = Order::query();
+        // using eager loading 'with'
+        $data['orders'] = Order::with(['users:id,name', 'products'])->get();
+        // Model::with(['function_name:field_name, field_name', 'function_name'])->get();
 
         // if parameter product name isset, then do search based on a product name
         if($request->order_id AND $request->order_id != '') {

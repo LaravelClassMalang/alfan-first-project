@@ -27,13 +27,13 @@
                                     <input type="text" name="product_name" placeholder="Product Name" value="{{ Request::get('product_name') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
+                                    <input type="text" name="category" placeholder="Category" value="{{ Request::get('category') }}" class="form-control">
+                                </div>
+                                <div class="form-group">
                                     <input type="number" name="stock" placeholder="Stock" value="{{ Request::get('stock') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <input type="number" name="price" placeholder="Price" value="{{ Request::get('price') }}" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="category" placeholder="Category" value="{{ Request::get('category') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-search"><i class="fa fa-search"></i> </button>
@@ -66,10 +66,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Category</th>
                                         <th>Stock</th>
                                         <th>Price</th>
-                                        <th>Category</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -77,9 +77,9 @@
                                         <tr>
                                             <td>{{ $number++ }}</td>
                                             <td>{{ $product->product_name }}</td>
-                                            <td>{{ $product->stock }}</td>
-                                            <td>{{ $product->price }}</td>
                                             <td>{{ $product->category->category_name or '-' }}</td>
+                                            <td>{{ $product->stock }}</td>
+                                            <td>{{ toRupiah($product->price) }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('products.edit', ['product_id' => $product->product_id]) }}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a onclick="return confirm('Delete this data ?')" href="{{ route('products.delete', ['product_id' => $product->product_id]) }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
