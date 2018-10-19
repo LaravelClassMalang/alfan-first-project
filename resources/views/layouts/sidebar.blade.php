@@ -1,4 +1,9 @@
 <ul class="sidebar-menu">
+  <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+    <a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+  </li>
+</ul>
+<ul class="sidebar-menu">
   <li class="{{ Request::is('users*') ? 'active' : '' }}">
     <a href="{{ route('users.index') }}"><i class="fa fa-users"></i> <span>Users</span></a>
   </li>

@@ -25,6 +25,11 @@ Route::post('/login', 'MyAuth\LoginController@doLogin')->name('do_login');
 Route::get('/logout', 'MyAuth\LoginController@doLogout')->name('do_logout');
 
 /**
+ * Dashboard Page
+ */
+Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+
+/**
  * Product Page
  */
 Route::resource('products', 'ProductController');

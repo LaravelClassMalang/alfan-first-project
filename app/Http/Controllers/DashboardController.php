@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Category;
+use App\Product;
+use App\Order;
 
 class DashboardController extends Controller
 {
@@ -14,8 +17,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return 'Ini halaman dashboard';
+        // Available Data
+        $data['users'] = count(User::all());
+        $data['categories'] = count(Category::all());
+        $data['products'] = count(Product::all());
+        $data['orders'] = count(Order::all());
+        // Data in Trash
+        $data['products_trash'] = count(Product::onlyTrashed()->get());
+
+        return view('dashboard.index', compact('data'));
     }
 
     /**
