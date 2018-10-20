@@ -19,16 +19,23 @@ class ProductController extends Controller
         $pagination = 5;
 
         // filtering
-        $products = Product::query();
-
+        $products = Product::query();  
+        
         // if parameter product name isset, then do search based on a product name
         if($request->product_name AND $request->product_name != '') {
             $products->where('product_name', 'LIKE', '%'.$request->product_name.'%');
+        }elseif($request->category AND $request->category != '') {
+            // Retrieve all posts with at least one comment containing words like foo%
+            $products->whereHas('category', function ($query) use($request) {
+                $query->where('category_name', 'LIKE', '%'.$request->category.'%');
+            });
         }elseif($request->stock AND $request->stock != '') {
             $products->where('stock', 'LIKE', '%'.$request->stock.'%');
         }elseif($request->price AND $request->price != '') {
             $products->where('price', 'LIKE', '%'.$request->price.'%');
         }
+
+
 
         $data['products'] = $products->paginate($pagination);
 
@@ -59,9 +66,8 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
-        
         $request->validate([
             'product_name' => 'required|unique:products,product_name',
             'category_id' => 'required',

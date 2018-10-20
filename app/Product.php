@@ -22,4 +22,16 @@ class Product extends Model
     public function category() {
         return $this->belongsTo('App\Category', 'category_id', 'category_id');
     }
+
+    public function getProductNameAttribute($value) //getProductNameAttribute adalah nama field product
+    {
+        return strtoupper($value);
+    }
+
+    public function setProductNameAttribute($value) //setProductNameAttribute adalah nama field product
+    {
+        $this->attributes['product_name'] = strtolower($value);
+    }
+
+
 }

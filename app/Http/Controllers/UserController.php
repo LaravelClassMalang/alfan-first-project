@@ -23,7 +23,7 @@ class UserController extends Controller
         $pagination = 5;
 
         // filtering
-        $users = User::query();
+        $users = User::query()->orderByDesc('id');
         // Jika parameter nama di isi, maka lakukan pencarian berdasarkan nama
         if(isset($request->name) AND $request->name != '') {
             // equals
@@ -179,6 +179,7 @@ class UserController extends Controller
             }
         });
         $writer->close();
+        exit();
     }
 
     public function exportPDF($user_id) {

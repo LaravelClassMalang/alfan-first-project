@@ -72,8 +72,8 @@
                                         <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    @foreach($data['products'] as $key => $product)
+                                    <tbody>                                    
+                                    @forelse($data['products'] as $key => $product)
                                         <tr>
                                             <td>{{ $number++ }}</td>
                                             <td>{{ $product->product_name }}</td>
@@ -85,7 +85,11 @@
                                                 <a onclick="return confirm('Delete this data ?')" href="{{ route('products.delete', ['product_id' => $product->product_id]) }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                        @empty
+                                        <tr>
+                                            <td>data not available</td>
+                                        </tr>
+                                    @endforelse
                                     </tbody>
                                 </table>
                                 <div class="clearfix"></div>

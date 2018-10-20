@@ -75,7 +75,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-user"></i>
-              <span class="hidden-xs">Laravel Class Malang</span>
+              <span class="hidden-xs">{{ auth()->user()->display_admin }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->

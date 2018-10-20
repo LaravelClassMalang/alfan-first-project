@@ -24,9 +24,10 @@ class LoginController extends Controller
         // Without Validation
         try {
             if(\Auth::attempt($userdata)) {
+                // dd(\Auth::user());
                 // return response()->json(\Auth::user());
                 // return response()->json('Login SUCCESS!');
-                return redirect()->route('users.index');
+                return redirect()->route('dashboard.index');
             } else {
                 // return response()->json('Login FAILED!');
                 return redirect()->route('show_login')->with('invalid_message', 'invalid email or password');

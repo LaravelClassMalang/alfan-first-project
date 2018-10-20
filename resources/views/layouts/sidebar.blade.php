@@ -28,3 +28,17 @@
     <a href="{{ route('e-mails.index') }}"><i class="fa fa-envelope"></i> <span>Email</span></a>
   </li>
 </ul>
+<ul class="sidebar-menu">
+  <li class="{{ Request::is('image*') ? 'active' : '' }}">
+    <a href="#">
+      <i class="fa fa-image"></i> <span>Upload Image</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      <li class="{{ Request::is('image/path*') ? 'active' : '' }}"><a href="{{ route('image_path.index') }}"><i class="fa fa-folder"></i> Using Path</a></li>
+      <li class="{{ Request::is('image/blob*') ? 'active' : '' }}"><a href="{{ route('image_blob.index') }}"><i class="fa fa-database"></i> Using BLOB</a></li>
+    </ul>
+  </li>
+</ul>

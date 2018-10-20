@@ -19,7 +19,7 @@ Route::get('/', function() {
  * Auth
  */
 // Login
-Route::get('/login', 'MyAuth\LoginController@showLogin')->name('show_login');
+Route::get('/login', 'MyAuth\LoginController@showLogin')->name('login');
 Route::post('/login', 'MyAuth\LoginController@doLogin')->name('do_login');
 // Logout
 Route::get('/logout', 'MyAuth\LoginController@doLogout')->name('do_logout');
@@ -27,7 +27,9 @@ Route::get('/logout', 'MyAuth\LoginController@doLogout')->name('do_logout');
 /**
  * Dashboard Page
  */
-Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+// Route::group(['middleware' => ['auth']], function () {    
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+// });
 
 /**
  * Product Page
@@ -65,5 +67,12 @@ Route::get('orders/{order}', 'OrderController@destroy')->name('orders.delete');
  */
 Route::get('e-mails', 'EmailController@index')->name('e-mails.index');
 Route::post('e-mails/send', 'EmailController@send')->name('e-mails.send');
+
+/**
+ * Image Page
+ */
+Route::get('image/path', 'ImageController@imagePath')->name('image_path.index');
+Route::get('image/blob', 'ImageController@imageBlob')->name('image_blob.index');
+Route::post('image/blob', 'ImageController@storeBlob')->name('image_blob.store');
 
 
